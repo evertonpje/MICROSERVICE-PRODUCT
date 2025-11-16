@@ -1,0 +1,174 @@
+/* src/App.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin: 24px auto; /* centraliza horizontalmente e dá respiro abaixo do header */
+}
+
+h1 {
+  margin-bottom: 1rem;
+  font-size: 24px;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.responseMessage {
+  margin-top: 1rem;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Header topo */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 700;
+  color: #333;
+}
+
+.top-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.nav-link:hover {
+  background: #f1f5ff;
+}
+
+.nav-link.active {
+  background: #007bff;
+  color: #fff;
+}
+
+/* Responsividade para listas de produtos */
+.container.container--wide {
+  max-width: 900px;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  text-align: left;
+}
+
+@media (min-width: 600px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr; /* 2 colunas em telas maiores */
+  }
+}
+
+.product-item {
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 100%;
+}
+
+.product-item strong {
+  flex: 1;
+  min-width: 0;             /* permite encolher sem overflow */
+  overflow-wrap: anywhere;   /* evita sair da tela com textos longos */
+}
+
+.product-item span {
+  white-space: nowrap;       /* mantém o preço em uma linha */
+}
+
+/* Tabela responsiva para produtos */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* permite scroll horizontal se necessário */
+}
+
+.table-products {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-products th,
+.table-products td {
+  border: 1px solid #eaeaea;
+  padding: 10px 12px;
+}
+
+.table-products thead th {
+  background: #f8f8f8;
+  font-weight: 600;
+}
+
+.table-products tbody tr:nth-child(odd) {
+  background: #fafafa;
+}
