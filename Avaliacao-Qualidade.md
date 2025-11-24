@@ -1,5 +1,6 @@
 Documentação Técnica do Projeto (Microservices)
 Este documento resume a stack tecnológica, arquitetura, configuração de banco de dados e estratégias de consistência utilizadas no ecossistema de microsserviços (Catalog, Auth, Checkout).
+
 1. Linguagem e Ferramentas
 Base: Node.js com TypeScript.
 Gerenciamento de Pacotes: npm.
@@ -8,6 +9,7 @@ typescript (Linguagem)
 ts-node (Execução direta de TS)
 ts-jest (Testes unitários e de integração)
 Evidência: Verificado via package.json e extensão de arquivos *.ts.
+
 2. Configuração e Execução
 Instalação
 Em cada pasta de serviço, execute via terminal (PowerShell/Bash):
@@ -31,6 +33,7 @@ npm run start:sqlite
 Variáveis de Ambiente Importantes
 DB: Define o driver de banco (Padrão: postgres).
 DB_FILE: Define o caminho do arquivo ou :memory: para SQLite.
+
 3. Arquitetura de Software
 Estilo: Microservices.
 Design Interno: Hexagonal / Clean Architecture.
@@ -47,6 +50,7 @@ Instancia RepositoryFactory (Abstração do acesso a dados).
 Instancia UsecaseFactory.
 Inicia o Servidor HTTP (Express ou Hapi) e conecta os Controllers.
 Nota: O uso do padrão Factory (DatabaseRepositoryFactory, UsecaseFactory) blinda o domínio contra acoplamento direto com o Banco de Dados ou Framework Web.
+
 4. Banco de Dados
 Adaptadores Suportados
 PostgreSQL (via pg-promise):
@@ -59,6 +63,7 @@ Script de Setup: initSqliteSchema(connection) cria tabelas e seeds iniciais auto
 Como rodar localmente
 Opção A (Recomendada para Dev): Usar SQLite definindo DB=sqlite.
 Opção B (Postgres): Subir container Docker na porta 5432, banco app, user postgres, senha 123456.
+
 5. Funcionalidades por Serviço
 📦 Catalog
 Responsabilidade: Listagem e detalhe de produtos.
@@ -72,6 +77,7 @@ Componentes Chave: TokenGenerator, validação de senha.
 Responsabilidade: Orquestração de pedidos.
 Fluxo: Processamento de itens, cálculo de frete, validação de cupom.
 Testes Relevantes: Checkout.test.ts, ValidateCoupon.test.ts.
+
 6. Testes Automatizados
 Framework: Jest + ts-jest.
 Execução
@@ -83,10 +89,13 @@ Cobertura e Estratégia
 Unitários: Testam regras de negócio nas Entidades (ex: Product.test.ts, Password.test.ts).
 Integração: Testam a API REST e persistência real/mockada (ver pasta test/integration).
 A arquitetura permite testar Use Cases isoladamente injetando repositórios fake ou em memória.
+
 7. Qualidade de Código (Linting)
 Frontend: Possui ESLint configurado.
 Backend: ⚠️ Não possui configuração de Linter.
 Recomendação: Instalar eslint, @typescript-eslint e prettier em cada microsserviço e adicionar script npm run lint no package.json.
+
+
 8. Estratégia Avançada: Transações Distribuídas
 Como o sistema não possui transações ACID distribuídas entre os serviços (Catalog, Auth, Checkout), recomenda-se a seguinte abordagem de Consistência Eventual:
 Recomendações de Implementação
@@ -98,4 +107,5 @@ Gerenciar o ciclo de vida do pedido. Se Pagamento falhar, disparar evento de com
 Resiliência:
 Garantir processamento Idempotente nos consumidores (para suportar retries sem duplicar pedidos).
 Utilizar ack/nack manuais nas filas.
+
 
